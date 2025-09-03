@@ -56,19 +56,20 @@ const uint8_t INIT_SSD1306_ADAFRUIT[] PROGMEM = {
 
 // @const uint8_t - List of init commands according to datasheet SSD1306
 const uint8_t INIT_SSD1306[] PROGMEM = {
-  17,                                                             // number of initializers
-  SSD1306_DISPLAY_OFF, 0,                                         // 0xAE = Set Display OFF
-  SSD1306_SET_MUX_RATIO, 1, 0x1F,                                 // 0xA8 - 0x3F for 128 x 64 version (64MUX)
-                                                                  //      - 0x1F for 128 x 32 version (32MUX)
+  19,                                                             // number of initializers
+  //SSD1306_RESET, 0,                                               // 0xE4 = Software Reset?
+  SSD1306_DISPLAY_OFF, 0,                                         // 0xAE, Set Display OFF
+  SSD1306_SET_MUX_RATIO, 1, 0x3F,                                 // 0xA8, 0x3F for 128 x 64 version (64MUX)
+                                                                  //     , 0x1F for 128 x 32 version (32MUX)
   SSD1306_MEMORY_ADDR_MODE, 1, 0x00,                              // 0x20 = Set Memory Addressing Mode
-                                                                  // 0x00 - Horizontal Addressing Mode
-                                                                  // 0x01 - Vertical Addressing Mode
-                                                                  // 0x02 - Page Addressing Mode (RESET)
+                                                                  // 0x00, Horizontal Addressing Mode
+                                                                  // 0x01, Vertical Addressing Mode
+                                                                  // 0x02, Page Addressing Mode (RESET)
   SSD1306_SET_START_LINE, 0,                                      // 0x40
   SSD1306_DISPLAY_OFFSET, 1, 0x00,                                // 0xD3
   SSD1306_SEG_REMAP_OP, 0,                                        // 0xA0 / remap 0xA1
   SSD1306_COM_SCAN_DIR_OP, 0,                                     // 0xC0 / remap 0xC8
-  SSD1306_COM_PIN_CONF, 1, 0x02,                                  // 0xDA, 0x12 - Disable COM Left/Right remap, Alternative COM pin configuration
+  SSD1306_COM_PIN_CONF, 1, 0x12,                                  // 0xDA, 0x12 - Disable COM Left/Right remap, Alternative COM pin configuration
                                                                   //       0x12 - for 128 x 64 version
                                                                   //       0x02 - for 128 x 32 version
   SSD1306_SET_CONTRAST, 1, 0x7F,                                  // 0x81, 0x7F - reset value (max 0xFF)
@@ -80,7 +81,9 @@ const uint8_t INIT_SSD1306[] PROGMEM = {
   SSD1306_VCOM_DESELECT, 1, 0x20,                                 // Set V COMH Deselect, reset value 0x22 = 0,77xUcc
   SSD1306_SET_CHAR_REG, 1, 0x14,                                  // 0x8D, Enable charge pump during display on
   SSD1306_DEACT_SCROLL, 0,                                        // 0x2E
-  SSD1306_DISPLAY_ON, 0                                           // 0xAF = Set Display ON
+  SSD1306_SET_COLUMN_ADDR, 2, START_COLUMN_ADDR, END_COLUMN_ADDR, // 0x21, Specifies column start address and end address / accord. mARTi-null #16
+  SSD1306_SET_PAGE_ADDR, 2, START_PAGE_ADDR, END_PAGE_ADDR,       // 0x22, Specifies page start address and end address / accord. mARTi-null #16
+  SSD1306_DISPLAY_ON, 0                                           // 0xAF, Set Display ON
 };
 
 // @var array Chache memory Lcd 8 * 128 = 1024
